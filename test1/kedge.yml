@@ -1,0 +1,52 @@
+name: sender
+
+deployments:
+- containers:
+  - image: docker.io/surajd/rabbitmq-sender:1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: deployments
+    - name: AMQP_PASSWORD
+      value: test
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: sender
+
+---
+name: receiver1
+
+deployments:
+- containers:
+  - image: docker.io/surajd/rabbitmq-receiver:1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: deployments
+    - name: AMQP_PASSWORD
+      value: test
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: receiver1
+
+---
+name: receiver2
+
+deployments:
+- containers:
+  - image: docker.io/surajd/rabbitmq-receiver:1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: deployments
+    - name: AMQP_PASSWORD
+      value: test
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: receiver2
