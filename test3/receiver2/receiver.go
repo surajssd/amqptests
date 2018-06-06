@@ -15,15 +15,9 @@ func main() {
 
 	ctx := context.Background()
 
-	// r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	// num := r.Intn(99999)
-	// numStr := fmt.Sprintf("%d", num)
-
 	// create a receiver
 	receiver, err := session.NewReceiver(
-		amqp.LinkSourceAddress("osio.space"),
-		// amqp.LinkProperty("key"+numStr, "value"+numStr),
-		// amqp.LinkSessionFilter("foobar"),
+		amqp.LinkSourceAddress(os.Getenv("AMQP_ADDRESS")),
 	)
 	if err != nil {
 		log.Fatal("[!] creating receiver link:", err)

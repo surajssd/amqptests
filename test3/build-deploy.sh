@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval $(minishift docker-env)
+
 go build -o sender/sender sender/sender.go
 docker build -t docker.io/surajd/activemq-sender:1.0.1 ./sender
 

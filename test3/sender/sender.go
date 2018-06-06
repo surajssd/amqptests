@@ -18,7 +18,7 @@ func main() {
 	ctx := context.Background()
 	// create a sender
 	sender, err := session.NewSender(
-		amqp.LinkTargetAddress("osio.space"),
+		amqp.LinkTargetAddress(os.Getenv("AMQP_ADDRESS")),
 	)
 	if err != nil {
 		log.Fatal("[!] creating sender link:", err)
@@ -39,3 +39,10 @@ func main() {
 	}
 
 }
+
+/*
+# when running locally without any openshift env
+
+export AMQP_USERNAME=deployments && export AMQP_PASSWORD=test && export TYPE_OF_AMQP_USER=sender && export POD_NAME=host
+export AMQP_USERNAME=deployments && export AMQP_PASSWORD=test && export TYPE_OF_AMQP_USER=receiver && export POD_NAME=host
+*/
