@@ -18,7 +18,7 @@ func main() {
 	ctx := context.Background()
 	// create a sender
 	sender, err := session.NewSender(
-		amqp.LinkTargetAddress("osio.space"),
+		amqp.LinkTargetAddress(os.Getenv("AMQP_ADDRESS")),
 	)
 	if err != nil {
 		log.Fatal("[!] creating sender link:", err)

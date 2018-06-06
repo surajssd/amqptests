@@ -14,6 +14,8 @@ deployments:
           fieldPath: metadata.name
     - name: TYPE_OF_AMQP_USER
       value: sender
+    - name: "AMQP_ADDRESS"
+      value: "osio.space"
 
 ---
 name: receiver1
@@ -32,6 +34,8 @@ deployments:
           fieldPath: metadata.name
     - name: TYPE_OF_AMQP_USER
       value: receiver1
+    - name: "AMQP_ADDRESS"
+      value: "osio.space"
 
 ---
 name: receiver2
@@ -50,3 +54,5 @@ deployments:
           fieldPath: metadata.name
     - name: TYPE_OF_AMQP_USER
       value: receiver2
+    - name: "AMQP_ADDRESS"
+      value: "osio.space"
