@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/surajssd/amqptests/commons"
@@ -16,22 +17,41 @@ func main() {
 	defer closer()
 
 	ctx := context.Background()
-	// create a sender
-	sender, err := session.NewSender(
-		amqp.LinkTargetAddress(os.Getenv("AMQP_ADDRESS")),
-	)
-	if err != nil {
-		log.Fatal("[!] creating sender link:", err)
+
+	// This is a workaround to create multiple senders which is one sender
+	// per address, which is provided comma separated, ideally the lib takes
+	// care of it, but with current installation of ActiveMQ it does not work
+	// so sender per address is the strategy being implemented
+	addresses := strings.Split(os.Getenv("AMQP_ADDRESS"), ",")
+	// create a senders
+	var senders []*amqp.Sender
+
+	for _, addr := range addresses {
+		sender, err := session.NewSender(
+			amqp.LinkTargetAddress(addr),
+		)
+		if err != nil {
+			log.Fatal("[!] creating sender link:", err)
+		}
+		senders = append(senders, sender)
 	}
-	defer sender.Close(ctx)
+
+	defer func() {
+		for _, sender := range senders {
+			sender.Close(ctx)
+		}
+	}()
 
 	count := 0
 	// endless for loop which keeps sending data
 	for {
 		msg := fmt.Sprintf("hello from %q on %q! %d", os.Getenv("TYPE_OF_AMQP_USER"), os.Getenv("POD_NAME"), count)
-		err = sender.Send(ctx, amqp.NewMessage([]byte(msg)))
-		if err != nil {
-			log.Print("[!] error: sending message:", err)
+
+		for _, sender := range senders {
+			err := sender.Send(ctx, amqp.NewMessage([]byte(msg)))
+			if err != nil {
+				log.Print("[!] error: sending message:", err)
+			}
 		}
 		log.Println("[*] sent message:", msg)
 		count++
