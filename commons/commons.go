@@ -17,16 +17,10 @@ func getCreds() (string, string) {
 
 func GetAMQPSession() (*amqp.Session, func()) {
 
-	// r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	// num := r.Intn(99999)
-	// numStr := fmt.Sprintf("%d", num)
-	// numStr := "2"
-
 	username, password := getCreds()
 	client, err := amqp.Dial(
 		"amqps://messaging-maas-aslakzredhatzcom.6a63.fuse-ignite.openshiftapps.com:443",
 		amqp.ConnSASLPlain(username, password),
-		// amqp.ConnProperty("key"+numStr, "value"+numStr),
 		amqp.ConnTLSConfig(&tls.Config{
 			InsecureSkipVerify: true,
 		}),
@@ -34,12 +28,14 @@ func GetAMQPSession() (*amqp.Session, func()) {
 	if err != nil {
 		log.Fatal("[!] dialing AMQP server:", err)
 	}
+	log.Println("[*] Authenticated with the bus.")
 
 	// Open a session
 	session, err := client.NewSession()
 	if err != nil {
 		log.Fatal("[!] creating AMQP session:", err)
 	}
+	log.Println("[*] Session created.")
 
 	return session, func() {
 		client.Close()
