@@ -17,7 +17,7 @@ func main() {
 
 	// create a receiver
 	receiver, err := session.NewReceiver(
-		amqp.LinkSourceAddress("osio.space"),
+		amqp.LinkSourceAddress(os.Getenv("AMQP_ADDRESS")),
 	)
 	if err != nil {
 		log.Fatal("[!] creating receiver link:", err)
