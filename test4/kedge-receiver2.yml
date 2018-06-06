@@ -2,7 +2,7 @@ name: receiver2
 
 deployments:
 - containers:
-  - image: docker.io/surajd/activemq-receiver2:1.0.1
+  - image: docker.io/surajd/activemq-receiver:1.0.1
     env:
     - name: AMQP_USERNAME
       value: deployments
