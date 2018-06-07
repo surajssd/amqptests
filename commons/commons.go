@@ -19,7 +19,7 @@ func GetAMQPSession() (*amqp.Session, func()) {
 
 	username, password := getCreds()
 	client, err := amqp.Dial(
-		"amqps://messaging-maas-aslakzredhatzcom.6a63.fuse-ignite.openshiftapps.com:443",
+		os.Getenv("AMQ_SERVER"),
 		amqp.ConnSASLPlain(username, password),
 		amqp.ConnTLSConfig(&tls.Config{
 			InsecureSkipVerify: true,

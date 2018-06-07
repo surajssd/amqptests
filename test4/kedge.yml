@@ -16,6 +16,8 @@ deployments:
       value: sender
     - name: "AMQP_ADDRESS"
       value: "sender.receiver1,sender.receiver2"
+    - name: AMQ_SERVER
+      value: "amqps://messaging-maas-aslakzredhatzcom.6a63.fuse-ignite.openshiftapps.com:443"
 
 ---
 name: receiver1
@@ -36,3 +38,5 @@ deployments:
       value: receiver1
     - name: "AMQP_ADDRESS"
       value: "sender.receiver1"
+    - name: AMQ_SERVER
+      value: "amqps://messaging-maas-aslakzredhatzcom.6a63.fuse-ignite.openshiftapps.com:443"
