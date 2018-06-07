@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: activemq-artemis
-        image: "fabric8/activemq-artemis:2.6.0"
+        image: "docker.io/surajd/activemq-artemis:2.6.0"
         command: ["/var/lib/apache-artemis/data/fabric8-broker/bin/artemis"]
         args: ["run"]
 ---
