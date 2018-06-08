@@ -24,7 +24,7 @@ under the License.
 
     <cors>
         <!-- Allow cross origin access from 0.0.0.0 ... -->
-        <allow-origin>http://192.168.99.100:31161</allow-origin>
+        <allow-origin>http://192.168.42.145:31161</allow-origin>
 
         <!-- Check for the proper origin on the server side, too -->
         <strict-checking/>
