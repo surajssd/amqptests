@@ -1,0 +1,71 @@
+name: sender
+
+deployments:
+- containers:
+  - image: docker.io/surajd/activemq-sender:fed-1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: admin
+    - name: AMQP_PASSWORD
+      value: password
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: sender
+    - name: "AMQP_ADDRESS"
+      value: "VirtualTopic.osio"
+    - name: AMQ_SERVER
+      value: "amqp://activemq-artemis.amq:5672/osio.space"
+    - name: ANONYMOUS_AUTH
+      value: "true"
+
+---
+name: receiver1
+
+deployments:
+- containers:
+  - image: docker.io/surajd/activemq-receiver:fed-1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: admin
+    - name: AMQP_PASSWORD
+      value: password
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: receiver1
+    - name: "AMQP_ADDRESS"
+      value: "Consumer.receiver1.VirtualTopic.osio"
+    - name: AMQ_SERVER
+      value: "amqp://activemq-artemis.amq:5672/osio.space"
+    - name: ANONYMOUS_AUTH
+      value: "true"
+      
+
+---
+name: receiver2
+
+deployments:
+- containers:
+  - image: docker.io/surajd/activemq-receiver:fed-1.0.1
+    env:
+    - name: AMQP_USERNAME
+      value: admin
+    - name: AMQP_PASSWORD
+      value: password
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: TYPE_OF_AMQP_USER
+      value: receiver2
+    - name: "AMQP_ADDRESS"
+      value: "Consumer.receiver2.VirtualTopic.osio"
+    - name: AMQ_SERVER
+      value: "amqp://activemq-artemis.amq:5672/osio.space"
+    - name: ANONYMOUS_AUTH
+      value: "true"
