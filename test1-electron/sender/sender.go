@@ -24,7 +24,9 @@ func main() {
 		log.Fatal("[!] dialing the amqp server:", err)
 	}
 	addr := strings.TrimPrefix(url.Path, "/")
-	s, err := c.Sender(electron.Target(addr))
+	s, err := c.Sender(
+		electron.Target(addr),
+	)
 	if err != nil {
 		log.Fatal("[!] creating sender:", err)
 	}

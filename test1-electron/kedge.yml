@@ -17,7 +17,7 @@ deployments:
     - name: "AMQP_ADDRESS"
       value: "VirtualTopic.osio"
     - name: AMQ_SERVER
-      value: "amqp://activemq-artemis.amq:5672/osio.space"
+      value: "amqp://activemq-artemis.amq:5672/fabric8.foo"
     - name: ANONYMOUS_AUTH
       value: "true"
 
@@ -41,7 +41,7 @@ deployments:
     - name: "AMQP_ADDRESS"
       value: "Consumer.receiver1.VirtualTopic.osio"
     - name: AMQ_SERVER
-      value: "amqp://activemq-artemis.amq:5672/osio.space"
+      value: "amqp://activemq-artemis.amq:5672/fabric8.foo::queue1"
     - name: ANONYMOUS_AUTH
       value: "true"
       
@@ -66,6 +66,6 @@ deployments:
     - name: "AMQP_ADDRESS"
       value: "Consumer.receiver2.VirtualTopic.osio"
     - name: AMQ_SERVER
-      value: "amqp://activemq-artemis.amq:5672/osio.space"
+      value: "amqp://activemq-artemis.amq:5672/fabric8.foo::queue2"
     - name: ANONYMOUS_AUTH
       value: "true"
