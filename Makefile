@@ -6,11 +6,21 @@ amq-build:
 .PHONY: amq-deploy
 amq-deploy:
 	-oc new-project amq
+	-oc delete configmap apache-artemis-cm
+	-oc create configmap apache-artemis-cm --from-file=amq/config
 	oc apply -f amq/activemq-artemis-deploy.yaml
 
 .PHONY: test1
 test1:
 	cd test1 && ./build-deploy.sh
+
+.PHONY: test1-electron
+test1-electron:
+	cd test1-electron && ./build-deploy.sh
+
+.PHONY: test2-electron
+test2-electron:
+	cd test2-electron && ./build-deploy.sh
 
 .PHONY: test2
 test2:
