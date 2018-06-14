@@ -219,6 +219,7 @@ under the License.
                <queue name="ExpiryQueue" />
             </anycast>
          </address>
+
         <address name="fabric8.foo">
           <multicast>
             <queue name="queue1">
