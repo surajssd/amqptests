@@ -18,17 +18,21 @@ test1:
 test1-electron:
 	cd test1-electron && ./build-deploy.sh
 
-.PHONY: test2-electron
-test2-electron:
-	cd test2-electron && ./build-deploy.sh
-
 .PHONY: test2
 test2:
 	cd test2 && ./build-deploy.sh
 
+.PHONY: test2-electron
+test2-electron:
+	cd test2-electron && ./build-deploy.sh
+
 .PHONY: test3
 test3:
 	cd test3 && ./build-deploy.sh
+
+.PHONY: test3-electron
+test3-electron:
+	cd test3-electron && ./build-deploy.sh
 
 .PHONY: test4
 test4:
