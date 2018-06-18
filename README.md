@@ -9,6 +9,8 @@ This repository has the tests done using [electron](https://godoc.org/qpid.apach
     - T2 - srv2 (i1) get msg
     - T3 - srv3 (i1) get msg
 
+Read about it more in [test1](test1).
+
 * Test Case 2 - when one of the recv instance is down other instance should get msg (assuming srv3(i1) is down at T3)
     - T1 - srv1 send msg
     - T2 - srv2 (i1) get msg
