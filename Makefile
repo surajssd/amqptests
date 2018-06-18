@@ -46,6 +46,10 @@ test4-electron:
 test5-electron:
 	cd test5-electron && ./build-deploy.sh
 
+.PHONY: test6-electron
+test6-electron:
+	cd test6-electron && ./build-deploy.sh
+
 .PHONY: test6
 test6:
 	cd test6 && ./build-deploy.sh
