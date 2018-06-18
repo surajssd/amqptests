@@ -1,12 +1,6 @@
 # AMQP tests
 
-This repository has the tests done using electron library for ActiveMQ Artemis.
-
-# Try it out yourself
-
-```bash
-make test2
-```
+This repository has the tests done using [electron](https://godoc.org/qpid.apache.org/electron) library for [ActiveMQ Artemis](http://activemq.apache.org/artemis/docs/latest/).
 
 # Test cases being run
 
@@ -54,3 +48,19 @@ Here, all msg should be load-balanced between srv3(i1) and srv3(i2).
     - T5 - srv3 (i1) get same msg
 
 Re-delivery support either provided by msg system or done in the integration service itself
+
+# Try it out yourself
+
+**Pre-requisite**: You should have a running [minishift](https://www.openshift.org/minishift/) or [`oc cluster up`](https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md) OpenShift cluster running.
+
+Deploy and Run AMQ.
+
+```bash
+make amq-build && make amq-deploy
+```
+
+To run test case number 2, run following command.
+
+```bash
+make test2
+```
