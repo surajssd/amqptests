@@ -1,26 +1,3 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: activemq-artemis
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: activemq-artemis
-    spec:
-      volumes:
-        - name: config-volume
-          configMap:
-            name: apache-artemis-cm
-      containers:
-      - name: activemq-artemis
-        image: "docker.io/surajd/activemq-artemis:2.6.0"
-        command: ["/var/lib/apache-artemis/data/fabric8-broker/bin/artemis"]
-        args: ["run"]
-        volumeMounts:
-        - name: config-volume
-          mountPath: /var/lib/apache-artemis/data/fabric8-broker/etc
 ---
 apiVersion: v1
 kind: Service
@@ -48,4 +25,45 @@ spec:
   selector:
     app: activemq-artemis
   type: NodePort
+
 ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: amq-storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: activemq-artemis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: activemq-artemis
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: apache-artemis-cm
+        - name: amq-storage
+          persistentVolumeClaim:
+            claimName: amq-storage
+      containers:
+      - name: activemq-artemis
+        image: "docker.io/surajd/activemq-artemis:2.6.0"
+        command: ["/var/lib/apache-artemis/data/fabric8-broker/bin/artemis"]
+        args: ["run"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /var/lib/apache-artemis/data/fabric8-broker/etc
+        - name: amq-storage
+          mountPath: /var/lib/apache-artemis/data/fabric8-broker/data
